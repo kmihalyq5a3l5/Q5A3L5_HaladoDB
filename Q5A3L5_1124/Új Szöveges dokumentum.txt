@@ -1,0 +1,329 @@
+select date('now');
+.headers on
+.mode column
+
+
+.open autodb
+.databases
+.open autodb
+.exit
+
+.schema auto
+CREATE TABLE AUTO (
+	Rendszam char(7) PRIMARY KEY,
+	Tipus char(25),
+	Szin char(15),
+	Kor number(3),
+	Ar number(10),
+	Tulaj char(3),
+	foreign key(Tulaj) references Tulajdonos(Ekod)
+);
+
+CREATE TABLE Tulajdonos (
+	Ekod char(3),
+	Nev char(15),
+	Varos char,
+	Telefon number(11)
+);
+
+
+INSERT INTO Auto VALUES('GDF-525','Renault Twingo','Fekete',16,280,103);
+INSERT INTO Auto VALUES('HUB-936','Suzuki Swift','Fekete',16,500,100);
+INSERT INTO Auto VALUES('IXL-239','Suzuki Swift','Zöld',15,450,105);
+INSERT INTO Auto VALUES('JAH-425','Skoda Fabia','Piros',13,620,102);
+INSERT INTO Auto VALUES('JCD-443','Opel Astra','Fehér',12,990,107);
+INSERT INTO Auto VALUES('KFT-204','Opel Astra','Szürke',7,1250,106);
+INSERT INTO Auto VALUES('KKK-205','Toyota Yaris','Kék',1,20000,109);
+
+
+
+INSERT INTO Tulajdonos VALUES('100','Kis János','Eger',209555666);
+INSERT INTO Tulajdonos VALUES('101','Kis János','Eger',209555666);
+INSERT INTO Tulajdonos VALUES('102','Kis Éva','Szerencs',308764432);
+INSERT INTO Tulajdonos VALUES('103','Retek Ödön','Miskolc',308764432);
+INSERT INTO Tulajdonos VALUES('104','Virág Zoltán','Nyék',703355440);
+INSERT INTO Tulajdonos VALUES('105','Nagy Eszter','Ózd',703355440);
+INSERT INTO Tulajdonos VALUES('106','Kovács Magor','Szerencs',703355444);
+INSERT INTO Tulajdonos VALUES('107','Kovács Magor','Szerencs',703355445);
+INSERT INTO Tulajdonos VALUES('109','Asztal Antal','Eger',209555666);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Public 
+
+
+
+package neptunkod;
+
+import java
+
+public class DbMethods
+{
+
+	final static String url = "jdbc:sqlite:C:/sqlite3/autodb";
+
+		Public static void Register() {
+
+	try {
+		Class.forName(className:"org.sqlite.JDBC");
+	} catch (ClassNotFoundException e) {
+		System.out.println("Class not found exception: " + e.getMessage());
+	}
+}
+}
+
+Public static Connection Connect() {
+	Connection conn = null;
+	try {
+		conn = DriverManager.getConnection(url);
+	} catch (SQLException e) {
+		System.out.println(e.getMessage());
+	}
+	return conn;
+}
+
+Public static void DisConnect(Connection conn) {
+		if(conn != null) {
+			try {
+				conn.close();
+			}
+			catch (SQLException e) {
+				System.out.println(e.getMessage())
+			}
+		}
+	}
+
+
+	Public static void CommandExec(String command) {
+		Connection conn = Connect();
+		try {
+			Statement s = conn.createStatement();
+			s.execute(command);
+		}
+		catch (SQLException e) {
+			System.out.println("Command: " + command);
+			System.out.println(e.getMessage());
+		}
+		Disconnect(conn);
+	}
+
+
+	Public static void ReadAllData() {
+		String rendszam = " ";
+		String tipus = " ";
+		String szin = " ";
+		String Tulaj = " ";
+		int kor = 0;
+		int ar = 0;
+		String sqlp = "SELECT Rendszam, Tipus, Szin, Kor, Ar, Tulaj FROM Auto";
+		Connection conn = Connect();
+
+		System.out.println("Autó tábla\n");
+
+		try {
+			Statement statement = conn.createStatement();
+			ResultSet resoult_set = statement.executeQuery(sqlp);
+
+			while(resoult_set.next()) {
+				rendszam = resoult_set.getString(columnLabel: "Rendszam");
+				tipus = resoult_set.getString(columbLabel: "Tipus");
+				szin = resoult_set.getString(columnLabel: "Szin");
+				kor = resoult_set.getString(columnLabel: "Kor");
+				tulaj = resoult_set.getString(columnLabel: "Tulaj");
+				System.out.println(
+					rendszam + "\t" + 
+						tipus + "\t" +
+						szin + "\t" + 
+						kor + "\t" +
+						ar + "\t" +
+						tulaj
+				);
+			  	}
+				resoult_set.close();
+			}
+			catch (SQLException e){ 
+				System.out.println(e.getMessage());
+			}
+			Disconnect(conn);
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+package Q5A3L5;
+
+Public class Program {
+	public static void main(String[] args) {
+		DbMethods.Register();
+
+		DbMethods.ReadAllData();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package q5a3l5;
+
+import java.sql.*;
+
+public class DbMethods
+{
+
+    final static String url = "jdbc:sqlite:C:/sqlite3/autodb";
+
+    public static void Register() {
+
+    try {
+        Class.forName("org.sqlite.JDBC");
+    } catch (ClassNotFoundException e) {
+        System.out.println("Class not found exception: " + e.getMessage());
+    }
+}
+}
+
+public static Connection Connect() {
+    Connection conn = null;
+    try {
+        conn = DriverManager.getConnection(DbMethods.url);
+    } catch (SQLException e) {
+        System.out.println(e.getMessage());
+    }
+    return conn;
+}
+
+public static void DisConnect(Connection conn) {
+    if(conn != null) {
+        try {
+            conn.close();
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+
+
+public static void CommandExec(String command) {
+    Connection conn = Connect();
+    try {
+        Statement s = conn.createStatement();
+        s.execute(command);
+    }
+    catch (SQLException e) {
+        System.out.println("Command: " + command);
+        System.out.println(e.getMessage());
+    }
+    DisConnect(conn);
+}
+
+
+public static void ReadAllData() {
+    String rendszam = " ";
+    String tipus = " ";
+    String szin = " ";
+    String tulaj = " ";
+    int kor = 0;
+    int ar = 0;
+    String sqlp = "SELECT Rendszam, Tipus, Szin, Kor, Ar, Tulaj FROM Auto";
+    Connection conn = Connect();
+
+    System.out.println("Autó tábla\n");
+
+    try {
+        Statement statement = conn.createStatement();
+        ResultSet result_set = statement.executeQuery(sqlp);
+
+        while(result_set.next()) {
+            rendszam = result_set.getString( "Rendszam");
+            tipus = result_set.getString( "Tipus");
+            szin = result_set.getString( "Szin");
+            kor = result_set.getInt( "Kor");
+            tulaj = result_set.getString( "Tulaj");
+            System.out.println(
+                    rendszam + "\t" +
+                            tipus + "\t" +
+                            szin + "\t" +
+                            kor + "\t" +
+                            ar + "\t" +
+                            tulaj
+            );
+        }
+        result_set.close();
+    }
+    catch (SQLException e){
+        System.out.println(e.getMessage());
+    }
+    DisConnect(conn);
+}
+	}
